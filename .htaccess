@@ -1,0 +1,22 @@
+RewriteEngine On
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+  Header always set Permissions-Policy "interest-cohort=(), camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
+</IfModule>
+
+# Canonicalize legacy page URLs to extensionless routes.
+RewriteRule ^(about|contact|design|apps|music|press)\.html$ /$1/ [R=301,L,NC]
+RewriteRule ^index\.html$ / [R=301,L,NC]
+
+# Canonical extensionless page URLs use trailing slash on this host.
+RewriteRule ^(about|contact|design|apps|music|press)$ /$1/ [R=301,L,NC]
+
+# Do not rewrite existing files/directories (assets, validation files, etc.).
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]

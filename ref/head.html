@@ -1,0 +1,33 @@
+<!-- ref/head.html — canonical <head> template. Keep each page's head in sync with this. -->
+<!-- Security: nosniff; strict referrer; CSP (no inline script, fonts allowlist, worker-src none, upgrade-insecure-requests); -->
+<!-- Permissions-Policy disables unused powerful APIs (camera, usb, payment, …); X-Frame-Options DENY. -->
+<!-- No inline script/style in pages; behaviour lives in same-origin js/*.js only. -->
+<!-- Per page: set title, description, og:url, og:title, og:description, og:image (+:alt), twitter:* (+ image:alt). -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#222327">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Permissions-Policy" content="interest-cohort=(), camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Sanchez:ital@0;1&display=swap">
+<title>Page title — replace per page</title>
+<meta name="description" content="Page description — replace per page">
+<meta name="author" content="Michael Duncan McArthur, mike@gorfed.net">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gorfed.net/">
+<meta property="og:title" content="Page title — replace per page">
+<meta property="og:description" content="Page description — replace per page">
+<meta property="og:site_name" content="Michael Duncan McArthur">
+<meta property="og:locale" content="en_CA">
+<meta property="og:image" content="https://gorfed.net/img/bg_body.jpg">
+<meta property="og:image:alt" content="Michael Duncan McArthur portfolio visual identity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Page title — replace per page">
+<meta name="twitter:description" content="Page description — replace per page">
+<meta name="twitter:image" content="https://gorfed.net/img/bg_body.jpg">
+<meta name="twitter:image:alt" content="Michael Duncan McArthur portfolio visual identity">
+<link rel="stylesheet" href="/css/global.css">

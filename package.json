@@ -1,0 +1,22 @@
+{
+  "name": "gorfed.net",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "build:pretext": "esbuild build/pretext-entry.mjs --bundle --format=iife --outfile=js/pretext.bundle.js --platform=browser --legal-comments=none --minify",
+    "verify": "node --check js/main.js && python3 -m py_compile build/site_pages.py build/verify-page-standards.py build/verify-shared-nav.py build/smoke-test-routes.py && python3 build/verify-page-standards.py && python3 build/verify-shared-nav.py",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@chenglou/pretext": "^0.0.4",
+    "esbuild": "^0.27.5"
+  }
+}

@@ -1,0 +1,13 @@
+# Copy to .deploy-env and set your SMB target. .deploy-env is not committed.
+# Deploy sends dist/ to the share. Server path is /data/websites/<sitename> (e.g. /data/websites/gorfed.net).
+
+# Option A: Already-mounted SMB share (mount point on your Mac; server path is /data/websites/*)
+# SMB_MOUNT=/Volumes/data/websites/gorfed.net
+
+# Option B: Mount by URL (mount_smbfs will prompt for password if not set)
+# SMB_URL=//username@hostname/sharename
+# SMB_MOUNT_POINT=/Volumes/gorfed-deploy
+# SMB_PASSWORD=yourpassword
+
+# Public Web3Forms access key used on contact page (injected at build time into dist/contact.html)
+# WEB3FORMS_ACCESS_KEY=6e1c5c65-1807-44a7-8460-b72e510f94e5

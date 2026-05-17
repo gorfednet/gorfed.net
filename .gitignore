@@ -1,0 +1,6 @@
+dist/
+dist 2/
+.deploy-env
+node_modules/
+cookies.txt
+.DS_Store

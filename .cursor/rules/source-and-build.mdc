@@ -1,0 +1,12 @@
+---
+description: Project root is source; dist is build output
+alwaysApply: true
+---
+
+# gorfed.net: Work in project root
+
+- **Source of truth**: Files in the project root (e.g. `index.html`, `js/main.js`, `css/`, `img/`) are the canonical source.
+- **dist/**: Build output only. Do not edit files in `dist/`; they are overwritten by `make build`.
+- **Workflow**: Edit files in the project root. Run `make build` from the project root to update `dist/`.
+- **Sync**: If you need root to match dist (e.g. after editing dist by mistake), run:  
+  `rsync -av dist/ ./` from the project root.
