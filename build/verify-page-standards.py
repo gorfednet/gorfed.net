@@ -19,6 +19,8 @@ from site_pages import PRIMARY_HTML_PAGES
 ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_META_SNIPPETS = (
+    'rel="icon" href="/favicon.ico"',
+    'rel="icon" href="/favicon.svg"',
     'name="description"',
     'name="theme-color"',
     'property="og:title"',

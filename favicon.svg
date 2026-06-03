@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Gorf">
+  <rect width="32" height="32" rx="6" fill="#222327"/>
+  <path fill="#ffffff" fill-rule="evenodd" clip-rule="evenodd" d="M16 9a7 7 0 1 0 0 14 7 7 0 0 0 5.39-2.52l-1.58-1.26A4.75 4.75 0 1 1 16 11.25c1.31 0 2.5.53 3.36 1.39H16v2h6.25A7 7 0 0 0 16 9z"/>
+</svg>

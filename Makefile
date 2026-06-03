@@ -39,6 +39,7 @@ test: build
 	@test -f $(DIST)/css/global.css || (echo "Missing global.css" && exit 1)
 	@test -f $(DIST)/js/main.js || (echo "Missing main.js" && exit 1)
 	@test -f $(DIST)/js/pretext.bundle.js || (echo "Missing pretext.bundle.js — run npm run build:pretext" && exit 1)
+	@test -f $(DIST)/favicon.svg && test -f $(DIST)/favicon.ico || (echo "Missing favicon.svg or favicon.ico" && exit 1)
 	@for f in $(DIST)/about/index.html $(DIST)/contact/index.html $(DIST)/design/index.html $(DIST)/apps/index.html $(DIST)/music/index.html $(DIST)/press/index.html; do \
 	  test -f "$$f" || (echo "Missing extensionless alias: $$f" && exit 1); \
 	done
@@ -52,6 +53,7 @@ test: build
 
 build: clean
 	@echo "Building deployable site into $(DIST)/..."
+	@npm run build:favicons
 	@npm run build:pretext
 	@mkdir -p $(DIST)
 	rsync -a --no-times $(EXCLUDE) ./ $(DIST)/
