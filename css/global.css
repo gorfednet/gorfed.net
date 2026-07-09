@@ -1075,6 +1075,25 @@ a.card-list-item:focus-visible {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
 }
+.upcoming-gigs-empty {
+  margin-top: var(--gap);
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+}
+.upcoming-gigs-empty p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-body-md);
+  line-height: 1.45;
+}
+.upcoming-gigs-empty p + p {
+  margin-top: 0.625rem;
+}
+.upcoming-gigs-empty a {
+  font-size: var(--text-body-sm);
+}
 .past-shows-table {
   width: 100%;
   min-width: 17.5rem;

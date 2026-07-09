@@ -141,6 +141,7 @@ function isSafeNavigationHref(href) {
   initPretextCardLinks();
   initContactForm();
   initPastShowsFilter();
+  initUpcomingGigsEmptyState();
 
   var dataTableWraps = [
     { wrapId: 'upcoming-gigs-grid', rowSelector: 'tr.upcoming-gig-row', defaultKey: 'date', defaultDir: 'asc' },
@@ -559,6 +560,21 @@ function initPastShowsFilter() {
   select.addEventListener('change', onFilterChange);
 
   applyFilter(select.value || 'all');
+}
+
+/**
+ * Music page: show empty-state panel when upcoming gigs table has no rows.
+ * Matches gorfmusic.com/live copy: status message + contact booking link.
+ */
+function initUpcomingGigsEmptyState() {
+  var grid = document.getElementById('upcoming-gigs-grid');
+  var emptyEl = document.getElementById('upcoming-gigs-empty');
+  var tableWrap = document.getElementById('upcoming-gigs-table-wrap');
+  if (!grid || !emptyEl || !tableWrap) return;
+
+  var hasRows = grid.querySelectorAll('tr.upcoming-gig-row').length > 0;
+  emptyEl.hidden = hasRows;
+  tableWrap.hidden = !hasRows;
 }
 
 /**

@@ -127,7 +127,12 @@
           <h2 id="upcoming-gigs-heading" class="h2-icon"><svg class="h2-icon-svg" width="16" height="16" aria-hidden="true" focusable="false"><use href="/img/icons.svg#icon-ticket" xlink:href="/img/icons.svg#icon-ticket"/></svg>Upcoming Shows</h2>
           <p>Scheduled events I'll be performing at.</p>
           <hr>
-          <div id="upcoming-gigs-grid" class="past-shows-table-wrap" role="region" aria-labelledby="upcoming-gigs-heading">
+          <div id="upcoming-gigs-grid" role="region" aria-labelledby="upcoming-gigs-heading">
+            <div id="upcoming-gigs-empty" class="upcoming-gigs-empty" role="status">
+              <p>No upcoming shows at the moment.</p>
+              <p><a href="/contact/">Get in touch to book</a></p>
+            </div>
+            <div id="upcoming-gigs-table-wrap" class="past-shows-table-wrap" hidden>
             <table class="past-shows-table">
               <thead>
                 <tr>
@@ -148,6 +153,7 @@
               <tbody>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
         <div class="wrapper_inner card-grid past-shows music-aligned-tables" id="past-performances">

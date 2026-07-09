@@ -49,6 +49,8 @@ test: build
 	@grep -q 'past-shows-filter-select' $(DIST)/music.html || (echo "music.html: missing past-shows filter select" && exit 1)
 	@grep -q 'past-shows-card--filtered-out' $(DIST)/css/global.css || (echo "global.css: missing past-shows filtered-out rule" && exit 1)
 	@grep -q 'applyFilter' $(DIST)/js/main.js || (echo "main.js: missing applyFilter" && exit 1)
+	@grep -q 'upcoming-gigs-empty' $(DIST)/music.html || (echo "music.html: missing upcoming gigs empty state" && exit 1)
+	@grep -q 'initUpcomingGigsEmptyState' $(DIST)/js/main.js || (echo "main.js: missing initUpcomingGigsEmptyState" && exit 1)
 	@echo "Test passed."
 
 build: clean
