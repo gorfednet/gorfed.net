@@ -1,0 +1,13 @@
+name: production-healthcheck
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+jobs:
+  health:
+    uses: gorfednet/.github/.github/workflows/production-healthcheck.yml@main
+    with:
+      site-url: https://gorfed.net
+      run-playwright: false

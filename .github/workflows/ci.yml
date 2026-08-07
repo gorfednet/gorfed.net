@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    uses: gorfednet/.github/.github/workflows/pr-check-static-verify.yml@main
+    with:
+      build-command: make build
+      make-test-command: make test
+      node-verify-command: npm run verify
+
+  browser-compat:
+    if: github.event_name == 'pull_request'
+    uses: gorfednet/.github/.github/workflows/browser-compat.yml@main
+    with:
+      build-command: make build
+      playwright-test-command: npx playwright test e2e/smoke.spec.ts

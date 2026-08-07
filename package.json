@@ -10,6 +10,8 @@
     "build:favicons": "node build/generate-favicons.mjs",
     "build:pretext": "esbuild build/pretext-entry.mjs --bundle --format=iife --outfile=js/pretext.bundle.js --platform=browser --legal-comments=none --minify",
     "verify": "node --check js/main.js && python3 -m py_compile build/site_pages.py build/verify-page-standards.py build/verify-shared-nav.py build/smoke-test-routes.py && python3 build/verify-page-standards.py && python3 build/verify-shared-nav.py",
+    "test:e2e": "playwright test",
+    "test:e2e:compat": "playwright test e2e/smoke.spec.ts --project=chromium --project=firefox --project=webkit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,7 +20,9 @@
   "type": "commonjs",
   "devDependencies": {
     "@chenglou/pretext": "^0.0.4",
+    "@playwright/test": "^1.62.1",
     "esbuild": "^0.27.5",
+    "serve": "^14.2.6",
     "sharp": "^0.34.5",
     "to-ico": "^1.1.5"
   }
