@@ -146,6 +146,7 @@ function isSafeNavigationHref(href) {
   var dataTableWraps = [
     { wrapId: 'upcoming-gigs-grid', rowSelector: 'tr.upcoming-gig-row', defaultKey: 'date', defaultDir: 'asc' },
     { wrapId: 'past-shows-grid', rowSelector: 'tr.past-show-row', defaultKey: 'date', defaultDir: 'desc' },
+    { wrapId: 'awards-grid', rowSelector: 'tr.award-row', defaultKey: 'date', defaultDir: 'desc' },
     { wrapId: 'project-press-grid', rowSelector: 'tr.press-project-row' },
   ];
   dataTableWraps.forEach(function (cfg) {
