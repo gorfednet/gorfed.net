@@ -1065,6 +1065,7 @@ a.card-list-item:focus-visible {
 
 /* Past performances, upcoming gigs, press: shared sortable data tables */
 .past-shows .past-shows-table-wrap,
+.press-awards .past-shows-table-wrap,
 .press-project .past-shows-table-wrap,
 .upcoming-gigs .past-shows-table-wrap {
   width: 100%;
@@ -1192,6 +1193,38 @@ a.card-list-item:focus-visible {
 @media (min-width: 640px) {
   .music-aligned-tables .past-shows-table thead th:nth-child(4),
   .music-aligned-tables .past-shows-table td:nth-child(4) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+}
+
+/* Press awards: Award | Project | Source | Year */
+.press-awards .past-shows-table {
+  table-layout: fixed;
+}
+@media (min-width: 640px) {
+  .press-awards .past-shows-table thead th:nth-child(1),
+  .press-awards .past-shows-table td:nth-child(1) {
+    width: 36%;
+  }
+  .press-awards .past-shows-table thead th:nth-child(2),
+  .press-awards .past-shows-table td:nth-child(2) {
+    width: 28%;
+  }
+  .press-awards .past-shows-table thead th:nth-child(3),
+  .press-awards .past-shows-table td:nth-child(3) {
+    width: 28%;
+    font-variant-numeric: normal;
+    white-space: nowrap;
+  }
+  .press-awards .past-shows-table thead th:nth-child(4),
+  .press-awards .past-shows-table td:nth-child(4) {
+    width: 8%;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .press-awards .past-shows-table td {
     white-space: nowrap;
     overflow-wrap: normal;
     word-break: normal;
