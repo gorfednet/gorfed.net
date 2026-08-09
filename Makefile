@@ -1,5 +1,4 @@
-# gorfed.net — build and deploy to SMB
-# Static site: build copies files to dist/; deploy syncs dist/ to SMB.
+# gorfed.net — build and deploy to NAS over SSH
 
 SHELL := /bin/bash
 DIST := dist
@@ -66,11 +65,7 @@ build: clean
 	@echo "Build done. Contents: $(DIST)/"
 
 deploy: build
-	@if [ -z "$(SMB_MOUNT)" ] && [ -z "$(SMB_URL)" ]; then \
-		echo "Set SMB_MOUNT (e.g. /Volumes/gorfed) or SMB_URL in .deploy-env or environment."; \
-		exit 1; \
-	fi
-	SMB_MOUNT="$(SMB_MOUNT)" SMB_URL="$(SMB_URL)" SMB_PASSWORD="$(SMB_PASSWORD)" ./deploy-to-smb.sh
+	@./deploy.sh
 
 clean:
 	rm -rf $(DIST)
