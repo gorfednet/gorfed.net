@@ -3,8 +3,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-# shellcheck source=../../gorfednet.github/scripts/nas-ssh-deploy.sh
+PROJECT_ROOT="${SCRIPT_DIR}"
+# shellcheck source=../gorfednet.github/scripts/nas-ssh-deploy.sh
 source "${PROJECT_ROOT}/../gorfednet.github/scripts/nas-ssh-deploy.sh"
 
 cd "${PROJECT_ROOT}"
