@@ -454,7 +454,6 @@ function initContactForm() {
     sendData.append('email', email);
     sendData.append('subject', '[' + siteTag + '] ' + subjectLabel + ' / ' + name);
     sendData.append('message', 'Topic: ' + subjectLabel + ' (' + subjectKey + ')\n\n' + rawMessage);
-    sendData.append('botcheck', 'false');
 
     if (submitBtn) submitBtn.disabled = true;
     setResult('Sending...', null);
