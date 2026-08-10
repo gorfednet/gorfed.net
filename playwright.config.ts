@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4173'
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://127.0.0.1:4173'
 const isLive = Boolean(process.env.PLAYWRIGHT_BASE_URL)
 
 export default defineConfig({
@@ -12,6 +12,7 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL,
+    ignoreHTTPSErrors: !isLive,
     trace: 'on-first-retry',
   },
   projects: [
@@ -24,8 +25,9 @@ export default defineConfig({
     : {
         command:
           process.env.PLAYWRIGHT_WEB_SERVER ??
-          'npx serve dist -l 4173',
+          'openssl req -x509 -newkey rsa:2048 -keyout /tmp/gorfed-playwright-key.pem -out /tmp/gorfed-playwright-cert.pem -days 1 -nodes -subj "/CN=127.0.0.1" >/dev/null 2>&1 && npx serve dist -l 4173 --ssl-cert /tmp/gorfed-playwright-cert.pem --ssl-key /tmp/gorfed-playwright-key.pem',
         url: baseURL,
+        ignoreHTTPSErrors: true,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
       },

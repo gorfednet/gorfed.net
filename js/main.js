@@ -391,7 +391,13 @@ function initContactForm() {
 
   if (messageInput && messageNoteEl) {
     updateMessageCount();
-    messageInput.addEventListener('input', updateMessageCount);
+    var scheduleMessageCountUpdate = function () {
+      updateMessageCount();
+      requestAnimationFrame(updateMessageCount);
+    };
+    ['input', 'keyup', 'change', 'paste'].forEach(function (eventName) {
+      messageInput.addEventListener(eventName, scheduleMessageCountUpdate);
+    });
   }
 
   if (!accessKey) {
@@ -454,6 +460,8 @@ function initContactForm() {
     sendData.append('email', email);
     sendData.append('subject', '[' + siteTag + '] ' + subjectLabel + ' / ' + name);
     sendData.append('message', 'Topic: ' + subjectLabel + ' (' + subjectKey + ')\n\n' + rawMessage);
+    var botcheck = form.querySelector('input[name="botcheck"]');
+    if (botcheck && botcheck.checked) sendData.append('botcheck', 'on');
 
     if (submitBtn) submitBtn.disabled = true;
     setResult('Sending...', null);
