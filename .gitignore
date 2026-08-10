@@ -2,5 +2,7 @@ dist/
 dist 2/
 .deploy-env
 node_modules/
+test-results/
+playwright-report/
 cookies.txt
 .DS_Store

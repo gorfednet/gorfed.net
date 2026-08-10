@@ -374,11 +374,13 @@ function initContactForm() {
   var siteTag = (form.getAttribute('data-site-tag') || 'gorfed.net').trim();
   var messageMin = messageInput ? Number(messageInput.getAttribute('minlength') || '30') : 30;
   var messageMax = messageInput ? Number(messageInput.getAttribute('maxlength') || '8000') : 8000;
+  var submissionInFlight = false;
 
   function setResult(text, type) {
     if (!resultEl) return;
     resultEl.textContent = text || '';
     resultEl.classList.remove('is-error', 'is-success');
+    resultEl.setAttribute('role', type === 'error' ? 'alert' : 'status');
     if (type === 'error') resultEl.classList.add('is-error');
     if (type === 'success') resultEl.classList.add('is-success');
   }
@@ -408,6 +410,7 @@ function initContactForm() {
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    if (submissionInFlight) return;
 
     var elapsed = Date.now() - formMountedAt;
     if (elapsed < MIN_MS_BEFORE_SUBMIT) {
@@ -421,21 +424,21 @@ function initContactForm() {
       return;
     }
 
-    var emailInput = form.querySelector('input[name="email"]');
-    if (emailInput && typeof emailInput.checkValidity === 'function' && !emailInput.checkValidity()) {
-      setResult('Enter a valid email address before sending.', 'error');
-      return;
-    }
-
-    var honeypot = form.querySelector('input[name="company_website"]');
-    if (honeypot && honeypot.value && honeypot.value.trim() !== '') {
+    var fd = new FormData(form);
+    var botcheck = fd.has('botcheck');
+    if (botcheck) {
       setResult('Message sent.', 'success');
       form.reset();
       updateMessageCount();
       return;
     }
 
-    var fd = new FormData(form);
+    var emailInput = form.querySelector('input[name="email"]');
+    if (emailInput && typeof emailInput.checkValidity === 'function' && !emailInput.checkValidity()) {
+      setResult('Enter a valid email address before sending.', 'error');
+      return;
+    }
+
     var name = String(fd.get('name') || '').trim();
     var email = String(fd.get('email') || '').trim();
     var subjectKey = String(fd.get('subject') || '').trim();
@@ -454,21 +457,26 @@ function initContactForm() {
       return;
     }
 
-    var sendData = new FormData();
-    sendData.append('access_key', accessKey);
-    sendData.append('name', name);
-    sendData.append('email', email);
-    sendData.append('subject', '[' + siteTag + '] ' + subjectLabel + ' / ' + name);
-    sendData.append('message', 'Topic: ' + subjectLabel + ' (' + subjectKey + ')\n\n' + rawMessage);
-    var botcheck = form.querySelector('input[name="botcheck"]');
-    if (botcheck && botcheck.checked) sendData.append('botcheck', 'on');
+    var sendData = {
+      access_key: accessKey,
+      name: name,
+      email: email,
+      subject: '[' + siteTag + '] ' + subjectLabel + ' / ' + name,
+      message: 'Topic: ' + subjectLabel + ' (' + subjectKey + ')\n\n' + rawMessage,
+      botcheck: false,
+    };
 
+    submissionInFlight = true;
     if (submitBtn) submitBtn.disabled = true;
     setResult('Sending...', null);
 
     fetch(endpoint, {
       method: 'POST',
-      body: sendData,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendData),
     })
       .then(function (res) {
         return res.json().then(function (data) {
@@ -489,12 +497,16 @@ function initContactForm() {
           out.data && typeof out.data.message === 'string' && out.data.message.trim().length > 0
             ? out.data.message.trim()
             : 'Could not send message right now. Please try again shortly.';
+        if (/(?:honeypot|botcheck)/i.test(msg)) {
+          msg = 'Could not verify your submission. Refresh the page and try again.';
+        }
         setResult(msg, 'error');
       })
       .catch(function () {
         setResult('Network error while sending. Please try again shortly.', 'error');
       })
       .finally(function () {
+        submissionInFlight = false;
         if (submitBtn) submitBtn.disabled = false;
       });
   });

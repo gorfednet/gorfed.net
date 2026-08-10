@@ -37,6 +37,9 @@ test: build
 	done
 	@test -f $(DIST)/css/global.css || (echo "Missing global.css" && exit 1)
 	@test -f $(DIST)/js/main.js || (echo "Missing main.js" && exit 1)
+	@grep -q 'botcheck: false' $(DIST)/js/main.js || (echo "main.js: missing boolean botcheck payload" && exit 1)
+	@! grep -q "sendData.append('botcheck'" $(DIST)/js/main.js || (echo "main.js: contains legacy multipart botcheck behavior" && exit 1)
+	@! grep -q 'name="company_website"' $(DIST)/contact.html || (echo "contact.html: contains legacy honeypot field" && exit 1)
 	@test -f $(DIST)/js/pretext.bundle.js || (echo "Missing pretext.bundle.js — run npm run build:pretext" && exit 1)
 	@test -f $(DIST)/favicon.svg && test -f $(DIST)/favicon.ico || (echo "Missing favicon.svg or favicon.ico" && exit 1)
 	@for f in $(DIST)/about/index.html $(DIST)/contact/index.html $(DIST)/design/index.html $(DIST)/apps/index.html $(DIST)/music/index.html $(DIST)/press/index.html; do \
@@ -64,6 +67,7 @@ build: clean
 	@python3 build/create-extensionless-aliases.py
 	@echo "Build done. Contents: $(DIST)/"
 
+deploy: export REQUIRE_WEB3FORMS_KEY := 1
 deploy: build
 	@./deploy.sh
 
