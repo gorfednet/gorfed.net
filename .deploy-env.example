@@ -4,3 +4,6 @@ NAS_SSH_HOST=gorfednas
 NAS_SSH_PORT=22
 NAS_REMOTE_BASE=/volume1/data/websites
 NAS_SITE_DIR=gorfed.net
+
+# Required by `make deploy`; create a site-specific key in Web3Forms.
+WEB3FORMS_ACCESS_KEY=
