@@ -19,5 +19,7 @@ nas_ssh_load_env "${PROJECT_ROOT}"
 NAS_SITE_DIR="${NAS_SITE_DIR:-gorfed.net}"
 
 nas_ssh_preflight "${NAS_SITE_DIR}"
-nas_ssh_rsync "${NAS_SITE_DIR}" "${DIST}/"
+# Wychwood is deployed independently by its own repository. Keep the nested
+# release intact when this parent site syncs with --delete.
+nas_ssh_rsync "${NAS_SITE_DIR}" --exclude=/wychwood/ "${DIST}/"
 echo "Deploy complete: $(nas_ssh_target "${NAS_SITE_DIR}")"
