@@ -16,6 +16,15 @@ test.describe('smoke', () => {
   })
 
   test('contact form counts characters and shows success', async ({ page }) => {
+    await page.route('**/contact/', async (route) => {
+      const response = await route.fetch()
+      const body = (await response.text()).replace(
+        /data-web3forms-key="[^"]*"/,
+        'data-web3forms-key="test-access-key"',
+      )
+      await route.fulfill({ response, body })
+    })
+
     let requestBody = ''
     await page.route('https://api.web3forms.com/submit', async (route) => {
       requestBody = route.request().postData() ?? ''
